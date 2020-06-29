@@ -9,5 +9,6 @@ module.exports = {
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "implicit-arrow-linebreak": 0,
+    "prefer-destructuring": 0,
   },
 };

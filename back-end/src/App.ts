@@ -1,11 +1,17 @@
-import * as express from "express";
+import express from "express";
+import cors from "cors";
+import graphqlRouter from "../graphql/api";
 
 class App {
   public app: express.Application;
 
-  constructor () {
+  constructor() {
     this.app = express();
-    this.app.get("/", (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    this.app.use(cors());
+
+    this.app.use("/graphql", graphqlRouter);
+
+    this.app.get("/", (req: express.Request, res: express.Response) => {
       res.send("Hello world");
     });
   }
