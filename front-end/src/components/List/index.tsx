@@ -2,12 +2,24 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 import useItems from "../../customHooks/useItems";
 import { fetchedAllItemsType, itemType } from "../../types";
+import Item from "./Item";
+import Loading from "../Loading";
+
+const Wrapper = styled.div`
+  border: solid 2px #e1e1e1;
+`;
+
+const Div = styled.div`
+  background-color: #03c75a;
+  width: 40rem;
+  height: 3rem;
+`;
 
 const ListStyle = styled.div`
-  background-color: #03c75a;
-  width: 10rem;
-  height: 5rem;
-  overflow: scroll;
+  width: 40rem;
+  height: 30rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 function List() {
@@ -38,15 +50,33 @@ function List() {
     }
   }
 
-  if (loading) return <p>loading...</p>;
+  if (loading)
+    return (
+      <Wrapper>
+        <Div />
+        <ListStyle>
+          <Loading />
+        </ListStyle>
+      </Wrapper>
+    );
   if (error || !data) return <p>Error :(</p>;
 
   return (
-    <ListStyle onScroll={scrollHandler} ref={scrollRef}>
-      {data.getItems.map((item: itemType) => (
-        <div key={item.id}>{item.id}</div>
-      ))}
-    </ListStyle>
+    <Wrapper>
+      <Div />
+      <ListStyle onScroll={scrollHandler} ref={scrollRef}>
+        {data.getItems.map((item: itemType) => (
+          <Item
+            key={item.id}
+            img={item.img}
+            name={item.name}
+            description={item.description}
+            price={item.price}
+            review={item.review}
+          />
+        ))}
+      </ListStyle>
+    </Wrapper>
   );
 }
 
