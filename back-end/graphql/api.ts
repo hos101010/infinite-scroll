@@ -6,10 +6,11 @@ const router: express.Router = express.Router();
 
 router.use(
   "/",
-  graphqlHTTP({
+  graphqlHTTP((req, res) => ({
     schema,
     graphiql: true,
-  })
+    context: { req, res },
+  }))
 );
 
 export default router;

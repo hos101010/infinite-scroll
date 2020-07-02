@@ -10,8 +10,23 @@ const itemType: string = `
     updateAt:String
   }
 
+  type PageInfo {
+    endCursor: Int
+    hasNextPage: Boolean
+  }
+
+  type ItemEdge {
+    cursor: Int
+    node: Item
+  }
+  
+  type ItemConnection {
+    edges: [ItemEdge]
+    pageInfo: PageInfo
+  }
+
   extend type Query{
-    getItems:[Item]
+    getItems(first: Int!, cursor: Int):ItemConnection
   }
 `;
 
